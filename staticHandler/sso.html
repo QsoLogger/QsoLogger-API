@@ -1,0 +1,211 @@
+<html>
+
+<head>
+	<meta charset="UTF-8">
+</head>
+
+<body>
+	<div>
+		<div>this is the normal app</div>
+	</div>
+	<div>
+		<div id="app"></div>
+	</div>
+
+	<hr>
+
+	<div>
+		<div id="apiTest">
+			<table border="1px solid" cellspacing="0">
+				<tr>
+					<th colspan="3" onclick="collapse(this)">商户-基础店铺管理</th>
+				</tr>
+				<tr>
+					<th style="min-width: 4.3rem;">名称</th>
+					<th style="min-width: 4.3rem;">调用</th>
+					<th style="min-width: 4.3rem;">结果</th>
+				</tr>
+				<tr>
+					<td>获取我的信息</td>
+					<td>
+						<script>
+							async function myInfo(b) {
+								let o = b.parentElement.nextElementSibling
+								o.innerHTML = "";
+								try {
+									let res = await __httpPost__(window.location.protocol + "//" + window.location.host + "/api/user/myInfo", {});
+									let obj = JSON.parse(res);
+									o.innerHTML += " (" + obj.Type + ")";
+									o.innerHTML += "[" + obj.ssoName + "]";
+								} catch (e) {
+									console.log("[DEBUG]", "[ERROR] merchantList:", e)
+								}
+							}
+						</script>
+						<button type="button" onclick="myInfo(this)">myInfo</button>
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>获取用户信息</td>
+					<td>
+						<script>
+							async function userInfo(b) {
+								let o = b.parentElement.nextElementSibling
+								o.innerHTML = "";
+								try {
+									let res = await __httpPost__(window.location.protocol + "//" + window.location.host + "/api/user/myInfo", {});
+									let obj = JSON.parse(res);
+									o.innerHTML += " (" + obj.Type + ")";
+									o.innerHTML += "[" + obj.ssoName + "]";
+								} catch (e) {
+									console.log("[DEBUG]", "[ERROR] merchantList:", e)
+								}
+							}
+						</script>
+						<button type="button" onclick="userInfo(this)">userInfo</button>
+					</td>
+					<td></td>
+				</tr>
+			</table>
+
+			<hr>
+
+			<table border="1px solid" cellspacing="0">
+				<tr>
+					<th colspan="3" onclick="collapse(this)">商户-基础店铺管理</th>
+				</tr>
+				<tr>
+					<th style="min-width: 4.3rem;">名称</th>
+					<th style="min-width: 4.3rem;">调用</th>
+					<th style="min-width: 4.3rem;">结果</th>
+				</tr>
+				<tr>
+					<td>获取我的信息</td>
+					<td>
+						<script>
+							async function myInfo(b) {
+								let o = b.parentElement.nextElementSibling
+								o.innerHTML = "";
+								try {
+									let res = await __httpPost__(window.location.protocol + "//" + window.location.host + "/api/user/myInfo", {});
+									let obj = JSON.parse(res);
+									o.innerHTML += " (" + obj.Type + ")";
+									o.innerHTML += "[" + obj.ssoName + "]";
+								} catch (e) {
+									console.log("[DEBUG]", "[ERROR] merchantList:", e)
+								}
+							}
+						</script>
+						<button type="button" onclick="myInfo(this)">myInfo</button>
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>获取用户信息</td>
+					<td>
+						<script>
+							async function userInfo(b) {
+								let o = b.parentElement.nextElementSibling
+								o.innerHTML = "";
+								try {
+									let res = await __httpPost__(window.location.protocol + "//" + window.location.host + "/api/user/myInfo", {});
+									let obj = JSON.parse(res);
+									o.innerHTML += " (" + obj.Type + ")";
+									o.innerHTML += "[" + obj.ssoName + "]";
+								} catch (e) {
+									console.log("[DEBUG]", "[ERROR] merchantList:", e)
+								}
+							}
+						</script>
+						<button type="button" onclick="userInfo(this)">userInfo</button>
+					</td>
+					<td></td>
+				</tr>
+			</table>
+			<hr>
+		</div>
+	</div>
+</body>
+
+</html>
+<!-- <script src="https://auth.jikedata.com/js/sso.js"></script> -->
+<script src="https://hw.cdn.jikedata.com/sso/sdk/sso_loader.js"></script>
+<script>
+	// 工具函数 折叠页面
+	async function collapse(b) {
+		for (let n = b.parentElement.nextElementSibling.nextElementSibling; n != null; n = n.nextElementSibling) {
+			if (n.style.display != "none") {
+				n.style.display = "none"
+			} else {
+				n.style.display = ""
+			}
+		}
+	}
+
+	// 工具函数 基于ajax的同步http GET
+	async function __httpGet__(url, dataMap) {
+		// console.log("[httpGet] url:", url);
+		console.log("[httpGet] dataMap:", dataMap);
+		return __ajax__({
+			type: "GET",
+			url: url,
+			data: dataMap,
+		});
+	}
+	// 工具函数 基于ajax的同步http POST
+	async function __httpPost__(url, dataMap) {
+		console.log("[httpPost] url:", url);
+		console.log("[httpPost] dataMap:", dataMap);
+		return __ajax__({
+			type: "POST",
+			url: url,
+			data: dataMap,
+		});
+	}
+
+
+	async function app() {
+		console.log("[DEBUG]", "==== 1 ====");
+		//await ssoLogin();
+		await loadSSONotInLine();
+		console.log("[DEBUG]", "==== 2 ====");
+		document.getElementById("app").innerHTML += getSSOID();
+		document.getElementById("app").innerHTML += "\n<br />";
+
+		console.log("[DEBUG]", "==== 3 ====");
+		document.getElementById("app").innerHTML += "GET:";
+		try {
+			let res1 = await __httpGet__(window.location.protocol + "//" + window.location.host + "/api/user/myInfo", {});
+			console.log("[DEBUG]", "==== 3.1 ====");
+			let user1 = JSON.parse(res1);
+			console.log("[DEBUG]", "==== 3.2 ====");
+			document.getElementById("app").innerHTML += " (" + user1.Type + ")";
+			console.log("[DEBUG]", "==== 3.3 ====");
+			document.getElementById("app").innerHTML += "[" + user1.ssoName + "]";
+			console.log("[DEBUG]", "==== 3.4 ====");
+		} catch (e) {
+			console.log("[DEBUG]", "[ERROR] 3.x:", e)
+		}
+		document.getElementById("app").innerHTML += "\n<br />";
+
+		console.log("[DEBUG]", "==== 4 ====");
+		document.getElementById("app").innerHTML += "POST:";
+		try {
+			let res2 = await __httpPost__(window.location.protocol + "//" + window.location.host + "/api/user/myInfo", {});
+			console.log("[DEBUG]", "==== 4.1 ====");
+			let user2 = JSON.parse(res2);
+			console.log("[DEBUG]", "==== 4.2 ====");
+			document.getElementById("app").innerHTML += " (" + user2.Type + ")";
+			console.log("[DEBUG]", "==== 4.3 ====");
+			document.getElementById("app").innerHTML += "[" + user2.ssoName + "]";
+			console.log("[DEBUG]", "==== 4.4 ====");
+		} catch (e) {
+			console.log("[DEBUG]", "[ERROR] 4.x:", e)
+		}
+		document.getElementById("app").innerHTML += "\n<br />";
+	}
+
+	app();
+
+</script>
