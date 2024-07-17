@@ -1,0 +1,41 @@
+#logLevel: 0: for online,       no    log
+#logLevel: 1: for online,       error log only
+#logLevel: 2: for online,       notic log
+#logLevel: 3: for online,       info  log
+#logLevel: 4: for develop test, most  log
+#logLevel: 5: for debug,        all   log
+logLevel = 3
+
+enableDoc = true
+
+listen = "[::]:8080"
+
+
+
+[database]
+#driver = "mysql"
+#dataSource = "root:root@password@tcp(localhost:3306)/devTest?charset=utf8&multiStatements=true"
+#driver = "postgres"
+#dataSource = "postgresql://root@localhost:26257/defaultdb?sslmode=disable"
+driver = "sqlite3"
+dataSource = "file:///tmp/QsoLog.db"
+tablePrefix = "devT_"
+
+
+
+
+
+
+[mapA]
+[mapA.First]
+driver = "Drive_1"
+dataSource = "DataSource_1"
+tablePrefix = "TablePrefix_1"
+[mapA.Second]
+driver = "Drive_2"
+dataSource = "DataSource_2"
+tablePrefix = "TablePrefix_2"
+
+[mapB]
+key1 = "value1"
+key2 = "value2"
